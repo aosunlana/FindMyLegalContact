@@ -15,7 +15,7 @@ namespace FindMyLegalContact.Tests.Unit
             Guid employeeId = randomGuid;
             Employee randomEmployee = GetRandomEmployeeWithId(employeeId);
             
-            LegalContact expectedLegalContact = new LegalContact
+            var expectedLegalContact = new LegalContact
             {
                 EmployeeId = employeeId, LegalContactId = Guid.NewGuid()
             };
@@ -41,30 +41,34 @@ namespace FindMyLegalContact.Tests.Unit
         [Fact]
         public async Task ShouldRetrieveLegalContactIfEmployeesManagerHasDesignatedContactAsync()
         {
+            
             // given
             Guid employeeId = Guid.NewGuid();
             Guid managerId = Guid.NewGuid();
-            Employee employee = GetRandomEmployeeWithId(employeeId);
-            Employee manager = GetRandomEmployeeWithId(managerId);
-            LegalContact nuillLegalContact = null;
-            LegalContact managerLegalContact = GetRandomLegalContact();
+            LegalContact nullEmployeeLegalContact = null;
+            Employee manager = new Employee { Id = managerId };
+            Employee employee = new Employee { Id = employeeId, Manager = manager };
 
-            employee.Manager.Id = managerId;
+            var expectedLegalContact =
+                new LegalContact
+                {
+                    EmployeeId = managerId, LegalContactId = Guid.NewGuid()
+                };
 
-            this.legalContactBrokerMock.Setup(broker =>
-                    broker.GetDesignatedLegalContact(employeeId))
-                .ReturnsAsync(nuillLegalContact);
-    
             this.legalContactBrokerMock.Setup(broker =>
                     broker.GetDesignatedLegalContact(managerId))
-                .ReturnsAsync(managerLegalContact);
-
+                .ReturnsAsync(expectedLegalContact);
+    
+            this.legalContactBrokerMock.Setup(broker =>
+                    broker.GetDesignatedLegalContact(employeeId))
+                .ReturnsAsync(nullEmployeeLegalContact);
+    
             // when
-            LegalContact actualLegalContact =
-                await this.legalContactService.RetrieveLegalContact(employee);
+            ValueTask<LegalContact> actualLegalContact =
+                this.legalContactService.RetrieveLegalContact(employee);
 
             // then
-            actualLegalContact.Should().BeEquivalentTo(managerLegalContact);
+            actualLegalContact.Should().BeEquivalentTo(expectedLegalContact);
     
             this.legalContactBrokerMock.Verify(broker =>
                     broker.GetDesignatedLegalContact(employeeId),
@@ -73,13 +77,62 @@ namespace FindMyLegalContact.Tests.Unit
             this.legalContactBrokerMock.Verify(broker =>
                     broker.GetDesignatedLegalContact(managerId),
                 Times.Once);
-
+    
             this.legalContactBrokerMock.VerifyNoOtherCalls();
         }
 
         [Fact]
         public async Task ShouldRetrieveLegalContactIfEmployeesManagersManagerHasDesignatedContact()
         {
+            // given
+            Guid employeeId = Guid.NewGuid();
+            Guid managerId = Guid.NewGuid();
+            Guid managersManagerId = Guid.NewGuid();
+            LegalContact nullEmployeeLegalContact = null;
+            LegalContact nullEmployeeManagerLegalContact = null;
+            
+            Employee managersManager = new Employee { Id = managersManagerId };
+            Employee manager = new Employee { Id = managerId, Manager = managersManager };
+            Employee employee = new Employee { Id = employeeId, Manager = manager };
+            
+            var expectedLegalContact =
+                new LegalContact
+                {
+                    EmployeeId = managersManagerId, LegalContactId = Guid.NewGuid()
+                };
+
+            this.legalContactBrokerMock.Setup(broker =>
+                    broker.GetDesignatedLegalContact(managersManagerId))
+                .ReturnsAsync(expectedLegalContact);
+    
+            this.legalContactBrokerMock.Setup(broker =>
+                    broker.GetDesignatedLegalContact(managerId))
+                .ReturnsAsync(nullEmployeeManagerLegalContact);
+
+            this.legalContactBrokerMock.Setup(broker =>
+                    broker.GetDesignatedLegalContact(employeeId))
+                .ReturnsAsync(nullEmployeeLegalContact);
+            
+            // when
+            ValueTask<LegalContact> actualLegalContact =
+                this.legalContactService.RetrieveLegalContact(employee);
+            
+            // then
+            actualLegalContact.Should().BeEquivalentTo(expectedLegalContact);
+    
+            this.legalContactBrokerMock.Verify(broker =>
+                    broker.GetDesignatedLegalContact(employeeId),
+                Times.Once);
+    
+            this.legalContactBrokerMock.Verify(broker =>
+                    broker.GetDesignatedLegalContact(managerId),
+                Times.Once);
+    
+            this.legalContactBrokerMock.Verify(broker =>
+                    broker.GetDesignatedLegalContact(managersManagerId),
+                Times.Once);
+    
+            this.legalContactBrokerMock.VerifyNoOtherCalls();
            
         }
     }
