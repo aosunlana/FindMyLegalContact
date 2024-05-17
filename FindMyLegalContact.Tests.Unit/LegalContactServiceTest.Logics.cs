@@ -19,7 +19,7 @@ namespace FindMyLegalContact.Tests.Unit
 
             this.legalContactBrokerMock.Setup(broker =>
                     broker.GetDesignatedLegalContact(employeeId))
-                .Returns(expectedLegalContact);
+                .ReturnsAsync(expectedLegalContact);
             
             // when
             ValueTask<LegalContact> actualLegalContact =
@@ -50,11 +50,11 @@ namespace FindMyLegalContact.Tests.Unit
 
             this.legalContactBrokerMock.Setup(broker =>
                     broker.GetDesignatedLegalContact(employeeId))
-                .Returns(nuillLegalContact);
+                .ReturnsAsync(nuillLegalContact);
     
             this.legalContactBrokerMock.Setup(broker =>
                     broker.GetDesignatedLegalContact(managerId))
-                .Returns(managerLegalContact);
+                .ReturnsAsync(managerLegalContact);
 
             // when
             LegalContact actualLegalContact =

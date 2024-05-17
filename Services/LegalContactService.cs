@@ -11,9 +11,12 @@ namespace FindMyLegalContact.Services
         {
             this.legalContactBroker = legalContactBroker;
         }
-        public ValueTask<LegalContact> RetrieveLegalContact(Employee employee)
+        public async ValueTask<LegalContact> RetrieveLegalContact(Employee employee)
         {
-            throw new System.NotImplementedException();
+            LegalContact designatedLegalContact = 
+                await this.legalContactBroker.GetDesignatedLegalContact(employee.Id);
+
+            return designatedLegalContact;
         }
     }
 }

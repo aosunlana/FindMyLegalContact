@@ -4,5 +4,5 @@ namespace FindMyLegalContact.Brokers;
 
 public interface ILegalContactBroker
 {
-    LegalContact GetDesignatedLegalContact(Guid employeeId);
+    ValueTask<LegalContact> GetDesignatedLegalContact(Guid employeeId);
 }
