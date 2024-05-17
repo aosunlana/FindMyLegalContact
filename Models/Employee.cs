@@ -2,7 +2,7 @@ namespace FindMyLegalContact.Models
 {
     public class Employee
     {
-        Guid Id { get; set; }
-        Employee Manager { get; set; }
+        public Guid Id { get; set; }
+        public Employee Manager { get; set; }
     }
 }

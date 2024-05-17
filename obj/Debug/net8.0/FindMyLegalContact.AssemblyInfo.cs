@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FindMyLegalContact")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3e9e08d609f79f82743a65c2a991b4a383446070")]
 [assembly: System.Reflection.AssemblyProductAttribute("FindMyLegalContact")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FindMyLegalContact")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

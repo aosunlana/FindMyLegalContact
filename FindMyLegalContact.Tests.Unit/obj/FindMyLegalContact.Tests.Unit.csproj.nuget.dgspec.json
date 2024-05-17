@@ -42,9 +42,21 @@
               "target": "Package",
               "version": "[1.0.0, )"
             },
+            "EFxceptions": {
+              "target": "Package",
+              "version": "[0.4.5, )"
+            },
+            "FluentAssertions": {
+              "target": "Package",
+              "version": "[7.0.0-alpha.3, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.4.0, )"
+            },
+            "Tynamix.ObjectFiller": {
+              "target": "Package",
+              "version": "[1.5.8, )"
             },
             "xunit.extensibility.core": {
               "target": "Package",
@@ -119,6 +131,10 @@
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
               "version": "[17.8.0, )"
+            },
+            "Tynamix.ObjectFiller": {
+              "target": "Package",
+              "version": "[1.5.8, )"
             },
             "coverlet.collector": {
               "target": "Package",
