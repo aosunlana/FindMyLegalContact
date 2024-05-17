@@ -1,9 +1,10 @@
-using Castle.Components.DictionaryAdapter;
+using System;
+using System.Threading.Tasks;
 using FindMyLegalContact.Models;
 using FluentAssertions;
 using Moq;
 
-namespace FindMyLegalContact.Tests.Unit
+namespace FindMyLegalContact.Tests.Unit.Services.Foundations
 {
     public partial class LegalContactServiceTests
     {

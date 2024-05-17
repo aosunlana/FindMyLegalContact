@@ -1,3 +1,5 @@
+using System;
+
 namespace FindMyLegalContact.Models
 {
     public class Employee

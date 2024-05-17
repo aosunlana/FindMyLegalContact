@@ -1,10 +1,11 @@
+using System;
 using FindMyLegalContact.Brokers;
 using FindMyLegalContact.Models;
-using FindMyLegalContact.Services;
+using FindMyLegalContact.Services.Foundations;
 using Moq;
 using Tynamix.ObjectFiller;
 
-namespace FindMyLegalContact.Tests.Unit
+namespace FindMyLegalContact.Tests.Unit.Services.Foundations
 {
    public partial class LegalContactServiceTests
    {

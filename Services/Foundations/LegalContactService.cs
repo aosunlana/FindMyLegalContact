@@ -1,7 +1,8 @@
+using System.Threading.Tasks;
 using FindMyLegalContact.Brokers;
 using FindMyLegalContact.Models;
 
-namespace FindMyLegalContact.Services
+namespace FindMyLegalContact.Services.Foundations
 {
     public class LegalContactService : ILegalContactService
     {
