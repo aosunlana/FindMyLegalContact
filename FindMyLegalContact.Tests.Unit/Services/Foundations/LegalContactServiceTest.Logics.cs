@@ -73,7 +73,7 @@ namespace FindMyLegalContact.Tests.Unit.Services.Foundations
                 this.legalContactService.RetrieveLegalContact(employee);
 
             // then
-            actualLegalContact.Result.Should()
+            actualLegalContact.Should()
                 .BeEquivalentTo(expectedLegalContact, options =>
                     options.Including(legalContact => legalContact.EmployeeId)
                         .Including(legalContact => legalContact.LegalContactId));
@@ -126,7 +126,7 @@ namespace FindMyLegalContact.Tests.Unit.Services.Foundations
                 this.legalContactService.RetrieveLegalContact(employee);
             
             // then
-            actualLegalContact.Result.Should()
+            actualLegalContact.Should()
                 .BeEquivalentTo(expectedLegalContact, options =>
                     options.Including(legalContact => legalContact.EmployeeId)
                             .Including(legalContact => legalContact.LegalContactId));
