@@ -6,7 +6,15 @@ namespace FindMyLegalContact.Tests.Unit
 {
    public class LegalContactServiceTests
    {
-      private readonly Mock<ILegalContactService> legalContactService;
-      private readonly Mock<ILegalContactBroker> legalContactBroker;
+      private readonly ILegalContactService legalContactService;
+      private readonly Mock<ILegalContactBroker> legalContactBrokerMock;
+
+      public LegalContactServiceTests()
+      {
+         this.legalContactBrokerMock = new Mock<ILegalContactBroker>();
+         this.legalContactService = new LegalContactService(
+            legalContactBroker: this.legalContactBrokerMock.Object);
+      }
    }
+   
 }
