@@ -14,9 +14,12 @@ namespace FindMyLegalContact.Tests.Unit
             Guid randomGuid = Guid.NewGuid();
             Guid employeeId = randomGuid;
             Employee randomEmployee = GetRandomEmployeeWithId(employeeId);
-            LegalContact randomLegalContact = GetRandomLegalContact();
-            LegalContact expectedLegalContact = randomLegalContact;
-
+            
+            LegalContact expectedLegalContact = new LegalContact
+            {
+                EmployeeId = employeeId, LegalContactId = Guid.NewGuid()
+            };
+            
             this.legalContactBrokerMock.Setup(broker =>
                     broker.GetDesignatedLegalContact(employeeId))
                 .ReturnsAsync(expectedLegalContact);

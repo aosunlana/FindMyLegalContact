@@ -13,10 +13,16 @@ namespace FindMyLegalContact.Services
         }
         public async ValueTask<LegalContact> RetrieveLegalContact(Employee employee)
         {
-            LegalContact designatedLegalContact = 
-                await this.legalContactBroker.GetDesignatedLegalContact(employee.Id);
-
-            return designatedLegalContact;
+            while (employee != null)
+            {
+                LegalContact legalContact = await this.legalContactBroker.GetDesignatedLegalContact(employee.Id);
+                if (legalContact != null)
+                {
+                    return legalContact;
+                }
+                employee = employee.Manager;
+            }
+            return null;
         }
     }
 }

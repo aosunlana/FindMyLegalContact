@@ -2,7 +2,7 @@ namespace FindMyLegalContact.Models;
 
 public class LegalContact
 {
-    Guid EmployeeId { get; set; }
-    Guid LegalContactId { get; set; }
+    public Guid EmployeeId { get; set; }
+    public Guid LegalContactId { get; set; }
     
 }
