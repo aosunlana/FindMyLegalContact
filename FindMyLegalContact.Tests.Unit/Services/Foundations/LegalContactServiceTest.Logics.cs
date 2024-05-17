@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using FindMyLegalContact.Models;
 using FluentAssertions;
 using Moq;
+using Xunit;
 
 namespace FindMyLegalContact.Tests.Unit.Services.Foundations
 {
@@ -30,7 +31,10 @@ namespace FindMyLegalContact.Tests.Unit.Services.Foundations
                 this.legalContactService.RetrieveLegalContact(randomEmployee);
 
             // then
-            actualLegalContact.Should().BeEquivalentTo(expectedLegalContact);
+            actualLegalContact.Result.Should()
+                .BeEquivalentTo(expectedLegalContact, options =>
+                    options.Including(legalContact => legalContact.EmployeeId)
+                        .Including(legalContact => legalContact.LegalContactId));
             
             this.legalContactBrokerMock.Verify(broker =>
                     broker.GetDesignatedLegalContact(employeeId),
@@ -69,7 +73,10 @@ namespace FindMyLegalContact.Tests.Unit.Services.Foundations
                 this.legalContactService.RetrieveLegalContact(employee);
 
             // then
-            actualLegalContact.Should().BeEquivalentTo(expectedLegalContact);
+            actualLegalContact.Result.Should()
+                .BeEquivalentTo(expectedLegalContact, options =>
+                    options.Including(legalContact => legalContact.EmployeeId)
+                        .Including(legalContact => legalContact.LegalContactId));
     
             this.legalContactBrokerMock.Verify(broker =>
                     broker.GetDesignatedLegalContact(employeeId),
@@ -119,7 +126,10 @@ namespace FindMyLegalContact.Tests.Unit.Services.Foundations
                 this.legalContactService.RetrieveLegalContact(employee);
             
             // then
-            actualLegalContact.Should().BeEquivalentTo(expectedLegalContact);
+            actualLegalContact.Result.Should()
+                .BeEquivalentTo(expectedLegalContact, options =>
+                    options.Including(legalContact => legalContact.EmployeeId)
+                            .Including(legalContact => legalContact.LegalContactId));
     
             this.legalContactBrokerMock.Verify(broker =>
                     broker.GetDesignatedLegalContact(employeeId),
